@@ -1,9 +1,3 @@
-
-# Find out more about building applications with Shiny here:
-# 
-#    http://shiny.rstudio.com/
-#
-
 library(shiny)
 library(ggplot2)
 library(tidyverse)
@@ -17,7 +11,7 @@ shinyServer(function(input, output) {
    
   output$boxPlot <- renderPlot({
     
-    pl <- ggplot(data = tomato %>% filter(alt), 
+    pl <- ggplot(data = tomato %>% filter(alt >= min(input$range) & alt <= max(input$range)), 
                  aes_string(
                    x="species" ,
                    y=input$trait ,

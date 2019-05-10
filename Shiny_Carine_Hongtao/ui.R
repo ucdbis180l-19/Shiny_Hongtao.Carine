@@ -13,21 +13,29 @@ library(shiny)
 shinyUI(fluidPage(
   
   # Application title
-  titlePanel("Old Faithful Geyser Data"),
+  titlePanel("Tomato Data"),
   
-  # Sidebar with a slider input for number of bins 
+  helpText("This application creates a boxplot to show difference between",
+           "tomato traits in differnt altitude ranges.  Please use the radio box below to choose a trait",
+           "for plotting, then use the slider to select altitude range"),
+  
+  # Sidebar with a slider input 
   sidebarLayout(
     sidebarPanel(
-       sliderInput("bins",
-                   "Number of bins:",
-                   min = 1,
-                   max = 50,
-                   value = 30)
+      radioButtons("trait",
+                   "Choose a trait to display, then use slider to select Altitude range:",
+                   c("hyp", "int", "petleng", "leafleng", "leafnum"), 
+                   choiceNames = c("Hypocotyl Length (cm)", "Cummulative Internode Length(cm)", "Petal Length (cm)", "Leaf Length (cm)", "Leaf Number")),
+      sliderInput("alt",
+                   "Altitude range:",
+                   min = 0,
+                   max = 3540,
+                   value = c(800, 1200))
     ),
     
     # Show a plot of the generated distribution
     mainPanel(
-       plotOutput("distPlot")
+       plotOutput("boxPlot")
     )
   )
 ))
